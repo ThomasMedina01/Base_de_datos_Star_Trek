@@ -138,7 +138,7 @@ end
 GO;
 
 create procedure insert_nave(
-@nave int,
+@id_nave int,
 @modelo varchar(15),
 @velocidad varchar(20),
 @energia varchar(20),
@@ -148,7 +148,7 @@ create procedure insert_nave(
 as
 begin
 insert into Nave
-values(@nave,@modelo,@velocidad,@energia,@capitan,@flota)
+values(@id_nave,@modelo,@velocidad,@energia,@capitan,@flota)
 end
 
 GO;
@@ -431,3 +431,209 @@ exec insert_raza_habilidad
 exec insert_raza_habilidad
 @raza = 'Andorianos',
 @habilidad = 26
+
+exec insert_nave
+@id_nave = 1,
+@modelo = 'Aldara',
+@velocidad = '0.5 años luz/hora',
+@energia = '400 MW',
+@capitan = 856,
+@flota = 4687
+
+exec insert_nave
+@id_nave = 2,
+@modelo = 'Norkova',
+@velocidad = '0.35 años luz/hora',
+@energia = '100 MW',
+@capitan = 941,
+@flota = 3548
+
+exec insert_nave
+@id_nave = 3,
+@modelo = 'Batris',
+@velocidad = '0.45 años luz/hora',
+@energia = '390 MW',
+@capitan = 027,
+@flota = 9787
+
+exec insert_nave
+@id_nave = 4,
+@modelo = 'Reklar',
+@velocidad = '0.70 años luz/hora',
+@energia = '637 MW',
+@capitan = 356,
+@flota = 5461
+
+exec insert_nave
+@id_nave = 5,
+@modelo = 'Dorian',
+@velocidad = '0.15 años luz/hora',
+@energia = '250 MW',
+@capitan = 455,
+@flota = 3887
+
+
+exec insert_montana
+@id = 45,
+@nombre = 'Kanchenjunga',
+@altura = '8586 m',
+@planeta = 'Tauro 239'
+
+exec insert_montana
+@id = 52,
+@nombre = 'Lhotse',
+@altura = '8516 m',
+@planeta = 'GJ 1214'
+
+exec insert_montana
+@id = 37,
+@nombre = 'Cho Oyu',
+@altura = '8188 m',
+@planeta = 'DEF 6541'
+
+exec insert_montana
+@id = 64,
+@nombre = 'Makalu',
+@altura = '8485 m',
+@planeta = 'Gliese 876 d'
+
+exec insert_montana
+@id = 61,
+@nombre = 'Manaslu',
+@altura = '8163 m',
+@planeta = 'PSR B1257'
+
+
+exec insert_maniobra
+@id = 215,
+@nombre = 'Loop',
+@consumo = '20 MW/s',
+@descripcion = 'Vuelta vertical que se realiza de forma ascendente'
+
+exec insert_maniobra
+@id = 136,
+@nombre = 'Barrel roll',
+@consumo = '14 MW/s',
+@descripcion = 'Conjunto de rotaciones realizadas sobre el eje de la nave'
+
+exec insert_maniobra
+@id = 371,
+@nombre = 'Cobra',
+@consumo = '5 MW/s',
+@descripcion = 'Cambio en la posicion de la nave en 90 grados mientras avanza'
+
+exec insert_maniobra
+@id = 290,
+@nombre = 'Zig Zag',
+@consumo = '17 MW/s',
+@descripcion = 'Movimiento secuencial alternando de izquierda a derecha'
+
+exec insert_maniobra
+@id = 419,
+@nombre = '3/4',
+@consumo = '20 MW/s',
+@descripcion = 'Vuelta horizontal que no alcanza a cerrar su trayectoria'
+
+
+exec insert_mision
+@id = 20,
+@nombre = 'Neretva',
+@descripcion = 'Robo de suministros al imperio vecino'
+
+exec insert_mision
+@id = 25,
+@nombre = 'Greif',
+@descripcion = 'Exploracion en el sistema solar j-35'
+
+exec insert_mision
+@id = 30,
+@nombre = 'Hailstone',
+@descripcion = 'Recoleccion de energia solar en Axanar'
+
+exec insert_mision
+@id = 35,
+@nombre = 'Cerberus',
+@descripcion = 'Escoltar nave de suministros al planeta Bajor'
+
+exec insert_mision
+@id = 40,
+@nombre = 'Varsity',
+@descripcion = 'Destruir la nave crucero del imperio Klingon'
+
+
+exec insert_fecha_mision
+@flota = 4687,
+@mision = 20,
+@inicio = '5/16/4000',
+@fin = '9/2/4001'
+
+exec insert_fecha_mision
+@flota = 3548,
+@mision = 25,
+@inicio = '3/20/3999',
+@fin = '12/20/3999'
+
+exec insert_fecha_mision
+@flota = 9787,
+@mision = 30,
+@inicio = '8/25/4001',
+@fin = '10/20/4002'
+
+exec insert_fecha_mision
+@flota = 5461,
+@mision = 35,
+@inicio = '7/17/4015',
+@fin = '1/30/4018'
+
+exec insert_fecha_mision
+@flota = 3887,
+@mision = 40,
+@inicio = '6/23/3980',
+@fin = '4/8/3985'
+
+
+exec insert_nave_maniobra
+@nave = 1,
+@maniobra = 215
+
+exec insert_nave_maniobra
+@nave = 2,
+@maniobra = 136
+
+exec insert_nave_maniobra
+@nave = 3,
+@maniobra = 371
+
+exec insert_nave_maniobra
+@nave = 4,
+@maniobra = 290
+
+exec insert_nave_maniobra
+@nave = 5,
+@maniobra = 419
+
+
+exec insert_poblacion
+@nombre_cientifico = 'Tauro 239',
+@nombre_cientifico_raza = 'Romulanos',
+@porcentaje = '40%'
+
+exec insert_poblacion
+@nombre_cientifico = 'GJ 1214',
+@nombre_cientifico_raza = 'Klingons',
+@porcentaje = '15%'
+
+exec insert_poblacion
+@nombre_cientifico = 'DEF 6541',
+@nombre_cientifico_raza = 'Bajoranos',
+@porcentaje = '70%'
+
+exec insert_poblacion
+@nombre_cientifico = 'Gliese 876 d',
+@nombre_cientifico_raza = 'Humanos',
+@porcentaje = '90%'
+
+exec insert_poblacion
+@nombre_cientifico = 'PSR B1257',
+@nombre_cientifico_raza = 'Andorianos',
+@porcentaje = '25%'

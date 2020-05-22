@@ -1,3 +1,5 @@
+USE STAR_TREK_GAME
+
 select * from Capitan
 select * from Destino
 select * from Fecha_mision
@@ -13,8 +15,20 @@ select * from Planeta
 select * from Poblacion
 select * from Raza
 select * from Raza_Habilidad
-go;
+go
 
+create procedure insert_imperio(
+@id int,
+@nombre varchar(25),
+@temperatura int
+)
+as
+begin
+insert into Imperio
+values(@id,@nombre,@temperatura)
+end
+
+GO
 
 create procedure insert_capitan(
 @id int,
@@ -28,19 +42,21 @@ insert into Capitan
 values(@id,@nombre,@planeta,@imperio)
 end
 
-GO	;
+GO	
 
-create procedure insert_destino(
+create procedure insert_destinos(
 @id int,
-@nombre varchar(20)
+@nombre varchar(20),
+@planeta varchar (10),
+@imperio int
 )
 as
 begin
 insert into Destino
-values(@id,@nombre)
+values(@id,@nombre, @planeta, @imperio)
 end
 
-GO;
+GO
 
 create procedure insert_fecha_mision(
 @flota int,
@@ -54,7 +70,7 @@ insert into Fecha_mision
 values(@flota,@mision,@inicio,@fin)
 end
 
-GO;
+GO
 
 create procedure insert_flota(
 @id int,
@@ -68,7 +84,7 @@ insert into Flota
 values(@id,@nombre,@imperio,@destino)
 end
 
-GO;
+GO
 
 create procedure insert_habilidad(
 @id int,
@@ -81,25 +97,13 @@ insert into Habilidad
 values(@id,@nombre,@desc)
 end
 
-GO;
+GO
 
-create procedure insert_imperio(
-@id int,
-@nombre varchar(25),
-@temperatura varchar(15)
-)
-as
-begin
-insert into Imperio
-values(@id,@nombre,@temperatura)
-end
-
-GO;
 
 create procedure insert_maniobra(
 @id int,
 @nombre varchar(15),
-@consumo varchar(15),
+@consumo int,
 @descripcion varchar(30)
 )
 as
@@ -108,7 +112,7 @@ insert into Maniobra
 values (@id,@nombre,@consumo,@descripcion)
 end
 
-GO;
+GO
 
 create procedure insert_mision(
 @id int,
@@ -121,12 +125,12 @@ insert into Mision
 values(@id,@nombre,@descripcion)
 end
 
-GO;
+GO
 
 create procedure insert_montana(
 @id int,
 @nombre varchar(10),
-@altura varchar(50),
+@altura int,
 @planeta varchar(10)
 )
 as
@@ -135,13 +139,13 @@ insert into Montana
 values(@id,@nombre,@altura,@planeta)
 end
 
-GO;
+GO
 
 create procedure insert_nave(
 @id_nave int,
 @modelo varchar(15),
-@velocidad varchar(20),
-@energia varchar(20),
+@velocidad int,
+@energia int,
 @capitan int,
 @flota int
 )
@@ -151,7 +155,7 @@ insert into Nave
 values(@id_nave,@modelo,@velocidad,@energia,@capitan,@flota)
 end
 
-GO;
+GO
 
 create procedure insert_nave_maniobra(
 @nave int,
@@ -163,7 +167,7 @@ insert into Nave_maniobra
 values(@nave,@maniobra)
 end
 
-GO;
+GO
 
 create procedure insert_planeta(
 @nombre_cientifico varchar(10),
@@ -178,7 +182,7 @@ insert into Planeta
 values(@nombre_cientifico,@nombre_comun,@poblacion,@coordenadas,@imperio)
 end
 
-GO;
+GO
 
 create procedure insert_poblacion(
 @nombre_cientifico varchar(10),
@@ -191,7 +195,7 @@ insert into Poblacion
 values(@nombre_cientifico,@nombre_cientifico_raza,@porcentaje)
 end
 
-GO;
+GO
 
 create procedure insert_raza(
 @raza varchar(10)
@@ -202,7 +206,7 @@ insert into Raza
 values(@raza)
 end
 
-GO;
+GO
 
 create procedure insert_raza_habilidad(
 @raza varchar(10),
@@ -214,34 +218,34 @@ insert into Raza_Habilidad
 values(@raza,@habilidad)
 end
 
-GO;
+GO
 
 
 
 exec insert_imperio
 @id = 177013,
 @nombre = 'Imperio Klingon',
-@temperatura = '37 grados'
+@temperatura = 37
 
 exec insert_imperio
 @id = 139808,
 @nombre = 'Imperio Estelar Romulano',
-@temperatura = '31 grados'
+@temperatura = 31
 
 exec insert_imperio
 @id = 282856,
 @nombre = 'Imperio Terrano',
-@temperatura = '28 grados'
+@temperatura = 28
 
 exec insert_imperio
 @id = 264782,
 @nombre = 'Imperio Cardass',
-@temperatura = '32 grados'
+@temperatura = 32
 
 exec insert_imperio
 @id = 152889,
 @nombre = 'Imperio Tkon',
-@temperatura = '25 grados'
+@temperatura = 25
 
 
 
@@ -292,7 +296,7 @@ exec insert_capitan
 @id = 941,
 @nombre = 'Jadzia Dax',
 @planeta = 'Gliese 876 d',
-@imperio = 139808
+@imperio = 177013
 
 exec insert_capitan
 @id = 027,
@@ -314,27 +318,35 @@ exec insert_capitan
 
 
 
-exec insert_destino
+exec insert_destinos
 @id = 3647,
-@nombre = 'Las Siete Cupulas'
+@nombre = 'Las Siete Cupulas',
+@planeta = 'GJ 1214',
+@imperio = 264782
 
-exec insert_destino
+exec insert_destinos
 @id = 9874,
-@nombre = 'Stardust City'
+@nombre = 'Stardust City',
+@planeta = 'Tauro 239',
+@imperio = 177013
 
-exec insert_destino
+exec insert_destinos
 @id = 3225,
-@nombre = 'Canton'
+@nombre = 'Canton',
+@planeta = 'Gliese 876',
+@imperio = 177013
 
-exec insert_destino
+exec insert_destinos
 @id = 6484,
-@nombre = 'Portage Creek'
+@nombre = 'Portage Creek',
+@planeta = 'PSR B1257',
+@imperio = 177013
 
-exec insert_destino
+exec insert_destinos
 @id = 2458,
-@nombre = 'Genesis'
-
-
+@nombre = 'Genesis',
+@planeta = 'DEF 6541',
+@imperio = 282856
 
 exec insert_flota
 @id = 4687,
@@ -435,40 +447,40 @@ exec insert_raza_habilidad
 exec insert_nave
 @id_nave = 1,
 @modelo = 'Aldara',
-@velocidad = '0.5 años luz/hora',
-@energia = '400 MW',
+@velocidad = 0.5,
+@energia = 400,
 @capitan = 856,
 @flota = 4687
 
 exec insert_nave
 @id_nave = 2,
 @modelo = 'Norkova',
-@velocidad = '0.35 años luz/hora',
-@energia = '100 MW',
+@velocidad = 0.35,
+@energia = 100,
 @capitan = 941,
 @flota = 3548
 
 exec insert_nave
 @id_nave = 3,
 @modelo = 'Batris',
-@velocidad = '0.45 años luz/hora',
-@energia = '390 MW',
+@velocidad = 0.45,
+@energia = 390,
 @capitan = 027,
 @flota = 9787
 
 exec insert_nave
 @id_nave = 4,
 @modelo = 'Reklar',
-@velocidad = '0.70 años luz/hora',
-@energia = '637 MW',
+@velocidad = 0.70,
+@energia = 637,
 @capitan = 356,
 @flota = 5461
 
 exec insert_nave
 @id_nave = 5,
 @modelo = 'Dorian',
-@velocidad = '0.15 años luz/hora',
-@energia = '250 MW',
+@velocidad = 0.15,
+@energia = 250,
 @capitan = 455,
 @flota = 3887
 
@@ -476,62 +488,62 @@ exec insert_nave
 exec insert_montana
 @id = 45,
 @nombre = 'Kanchenjunga',
-@altura = '8586 m',
+@altura = 8586,
 @planeta = 'Tauro 239'
 
 exec insert_montana
 @id = 52,
 @nombre = 'Lhotse',
-@altura = '8516 m',
+@altura = 8516,
 @planeta = 'GJ 1214'
 
 exec insert_montana
 @id = 37,
 @nombre = 'Cho Oyu',
-@altura = '8188 m',
+@altura = 8188,
 @planeta = 'DEF 6541'
 
 exec insert_montana
 @id = 64,
 @nombre = 'Makalu',
-@altura = '8485 m',
+@altura = 8485,
 @planeta = 'Gliese 876 d'
 
 exec insert_montana
 @id = 61,
 @nombre = 'Manaslu',
-@altura = '8163 m',
+@altura = 8163,
 @planeta = 'PSR B1257'
 
 
 exec insert_maniobra
 @id = 215,
 @nombre = 'Loop',
-@consumo = '20 MW/s',
+@consumo = 20,
 @descripcion = 'Vuelta vertical que se realiza de forma ascendente'
 
 exec insert_maniobra
 @id = 136,
 @nombre = 'Barrel roll',
-@consumo = '14 MW/s',
+@consumo = 14,
 @descripcion = 'Conjunto de rotaciones realizadas sobre el eje de la nave'
 
 exec insert_maniobra
 @id = 371,
 @nombre = 'Cobra',
-@consumo = '5 MW/s',
+@consumo = 5,
 @descripcion = 'Cambio en la posicion de la nave en 90 grados mientras avanza'
 
 exec insert_maniobra
 @id = 290,
 @nombre = 'Zig Zag',
-@consumo = '17 MW/s',
+@consumo = 17,
 @descripcion = 'Movimiento secuencial alternando de izquierda a derecha'
 
 exec insert_maniobra
 @id = 419,
 @nombre = '3/4',
-@consumo = '20 MW/s',
+@consumo = 20,
 @descripcion = 'Vuelta horizontal que no alcanza a cerrar su trayectoria'
 
 
@@ -616,24 +628,24 @@ exec insert_nave_maniobra
 exec insert_poblacion
 @nombre_cientifico = 'Tauro 239',
 @nombre_cientifico_raza = 'Romulanos',
-@porcentaje = '40%'
+@porcentaje = 40
 
 exec insert_poblacion
 @nombre_cientifico = 'GJ 1214',
 @nombre_cientifico_raza = 'Klingons',
-@porcentaje = '15%'
+@porcentaje = 15
 
 exec insert_poblacion
 @nombre_cientifico = 'DEF 6541',
 @nombre_cientifico_raza = 'Bajoranos',
-@porcentaje = '70%'
+@porcentaje = 70
 
 exec insert_poblacion
 @nombre_cientifico = 'Gliese 876 d',
 @nombre_cientifico_raza = 'Humanos',
-@porcentaje = '90%'
+@porcentaje = 90 
 
 exec insert_poblacion
 @nombre_cientifico = 'PSR B1257',
 @nombre_cientifico_raza = 'Andorianos',
-@porcentaje = '25%'
+@porcentaje = 25
